@@ -476,7 +476,15 @@ function createHomeRestaurantCard(place, popular) {
   const card = document.createElement("article");
   card.className = popular ? "home-restaurant-card is-popular" : "home-restaurant-card";
   const title = document.createElement("h3");
-  title.textContent = place.name;
+  const nameLink = document.createElement("a");
+  nameLink.className = "home-restaurant-name";
+  nameLink.textContent = place.name;
+  nameLink.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(place.name + ", Bangladesh");
+  nameLink.target = "_blank";
+  nameLink.rel = "noopener noreferrer";
+  nameLink.setAttribute("aria-label", "Find " + place.name + " on Google Maps");
+  title.appendChild(nameLink);
+
   const label = document.createElement("p");
   label.textContent = place.category;
 
