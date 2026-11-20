@@ -756,7 +756,7 @@ section[id], footer[id] { scroll-margin-top: var(--header-height); }
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 42px;
+  min-height: 48px;
   margin-top: .85rem;
   padding: .6rem .8rem;
   border: 1.5px solid var(--color-accent);
@@ -764,8 +764,8 @@ section[id], footer[id] { scroll-margin-top: var(--header-height); }
   background: transparent;
   color: var(--color-accent);
   font: inherit;
-  font-size: .82rem;
-  font-weight: 700;
+  font-size: .84rem;
+  font-weight: 800;
   letter-spacing: .035em;
   cursor: pointer;
   transition: background-color .2s, color .2s, border-color .2s;
