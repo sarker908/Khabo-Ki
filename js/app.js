@@ -444,7 +444,7 @@ function initHeroSlideshow() {
 initHeroSlideshow();
 
 // ----- Homepage restaurant directory and popular places -----
-const HOME_RESTAURANT_DATA_URL = "data/khabo_ki_bangladesh.json";
+const HOME_RESTAURANT_DATA_URL = new URL("../data/khabo_ki_bangladesh.json", document.currentScript.src).href;
 const HOME_RESTAURANT_PAGE_SIZE = 18;
 const HOME_POPULAR_RESTAURANTS = [
   { match: /^KFC$/i, display: "KFC" },
