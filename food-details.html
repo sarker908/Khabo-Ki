@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Food Details | Khabo Ki?</title>
+  <meta name="description" content="Details, price estimate and similar foods on Khabo Ki?.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Order matters: food-data.js, favorites.js, app.js (cards + hearts), food-details.js (this page) -->
+  <script src="js/food-data.js" defer></script>
+  <script src="js/favorites.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <script src="js/food-details.js" defer></script>
+</head>
+<body>
+
+  <!-- ============ NAVIGATION ============ -->
+  <header class="site-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a href="index.html" class="logo">Khabo Ki<span>?</span></a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="explore.html">Explore Foods</a></li>
+        <li><a href="index.html#restaurants">Find Restaurants</a></li>
+        <li><a href="roulette.html">Food Roulette</a></li>
+        <li><a href="favorites.html">Favourites</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page-main">
+    <div class="container">
+
+      <!-- Breadcrumb: the last item is filled in with the food's name by js/food-details.js -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="explore.html">Explore Foods</a></li>
+          <li><span aria-current="page" id="breadcrumb-current">Food details</span></li>
+        </ol>
+      </nav>
+
+      <!-- Loading message -->
+      <p class="food-status" id="details-status">Loading food details...</p>
+
+      <!-- Error message (missing id, invalid id, food not found, catalogue failed to load) -->
+      <div class="empty-state" id="details-error" hidden>
+        <h1 id="error-title">Something went wrong</h1>
+        <p id="error-message"></p>
+        <a href="explore.html" class="btn btn-primary">Explore Foods</a>
+      </div>
+
+      <!-- The food: every part below is filled in by js/food-details.js -->
+      <article class="food-details" id="food-details" hidden>
+        <figure class="image-frame details-image" id="details-image-frame">
+          <img id="details-image" alt="" width="640" height="480">
+        </figure>
+
+        <div class="details-info">
+          <p class="food-category" id="details-category"></p>
+          <h1 id="details-name"></h1>
+          <p class="details-description" id="details-description"></p>
+
+          <p class="details-price-label">Estimated price</p>
+          <p class="details-price" id="details-price"></p>
+          <p class="details-note">An illustrative estimate, not a verified restaurant price.</p>
+
+          <h2 class="details-subheading">Tags</h2>
+          <ul class="tag-list" id="details-tags"></ul>
+
+          <div class="button-row" id="details-actions">
+            <!-- The favourites button is added here by js/food-details.js -->
+            <a href="explore.html" class="btn btn-outline">Back to Explore Foods</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Related foods -->
+      <section class="related-section" id="related-section" aria-labelledby="related-heading" hidden>
+        <h2 id="related-heading">You might also like</h2>
+        <div class="food-grid" id="related-grid"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer" id="about">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="logo">Khabo Ki<span>?</span></a>
+        <p>A playful food discovery and restaurant finder for Bangladesh. Built as a university Web Programming project with HTML, CSS and JavaScript.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <h2 class="footer-heading">Explore</h2>
+        <ul>
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="explore.html">Explore Foods</a></li>
+          <li><a href="index.html#restaurants">Find Restaurants</a></li>
+          <li><a href="roulette.html">Food Roulette</a></li>
+          <li><a href="favorites.html">Favourites</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer-note container">&copy; 2026 Khabo Ki? Food prices shown are illustrative estimates.</p>
+  </footer>
+
+  <!-- Short confirmation messages (used by the favourite buttons) -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+</body>
+</html>

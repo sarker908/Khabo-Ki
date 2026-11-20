@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mapbox Coverage Check | Khabo Ki?</title>
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/map.css"><!-- only for the .results-status message boxes -->
+
+  <script src="js/mapbox-config.js" defer></script>
+  <script src="js/mapbox-check.js" defer></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="navbar container">
+      <a href="index.html" class="logo">Khabo Ki<span>?</span></a>
+      <a href="restaurants.html">Back to Find Restaurants</a>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <div class="container page-header">
+      <h1>Mapbox coverage check</h1>
+      <p>A temporary developer page. It tests whether Mapbox can find restaurants in Bangladesh before the Restaurant Finder is migrated. Delete it when you no longer need it.</p>
+    </div>
+
+    <section class="container">
+      <div class="filter-panel">
+        <p>
+          This sends about 15 requests to Mapbox, only when you press the button. It uses the public token in
+          <code>js/mapbox-config.js</code>. A USA search is included as a control: if the control works but the
+          Dhaka searches return nothing, Mapbox does not cover Bangladesh for restaurants.
+        </p>
+        <div class="button-row">
+          <button type="button" class="btn btn-primary" id="run-check-button">Run coverage check</button>
+        </div>
+      </div>
+
+      <p class="results-status" id="check-verdict" role="status" data-state="info">Press the button to start.</p>
+      <ul id="check-results"></ul>
+    </section>
+  </main>
+
+</body>
+</html>

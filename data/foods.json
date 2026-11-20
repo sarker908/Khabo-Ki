@@ -1,0 +1,402 @@
+[
+  {
+    "id": 1,
+    "name": "Kacchi Biryani",
+    "category": "Bangladeshi",
+    "description": "Fragrant rice layered with marinated mutton and potato, slow cooked in a sealed pot.",
+    "minPrice": 350,
+    "maxPrice": 550,
+    "image": "images/kacchi-biryani.jpg",
+    "tags": [
+      "biryani",
+      "rice",
+      "mutton",
+      "dhaka",
+      "special",
+      "spicy"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Fuchka",
+    "category": "Street Food",
+    "description": "Crisp hollow shells filled with spiced chickpeas, potato and tangy tamarind water.",
+    "minPrice": 40,
+    "maxPrice": 80,
+    "image": "images/fuchka.jpg",
+    "tags": [
+      "fuchka",
+      "phuchka",
+      "tangy",
+      "crispy",
+      "vegetarian",
+      "evening"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Chotpoti",
+    "category": "Street Food",
+    "description": "Spiced chickpea and potato mix topped with egg, onion and chilli, served hot or cold.",
+    "minPrice": 50,
+    "maxPrice": 90,
+    "image": "images/chotpoti.jpg",
+    "tags": [
+      "chickpea",
+      "tangy",
+      "spicy",
+      "egg",
+      "vegetarian"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Chicken Shawarma",
+    "category": "Fast Food",
+    "description": "Grilled chicken, salad and sauce wrapped in warm flatbread.",
+    "minPrice": 120,
+    "maxPrice": 220,
+    "image": "images/chicken-shawarma.jpg",
+    "tags": [
+      "shawarma",
+      "wrap",
+      "chicken",
+      "sauce",
+      "quick"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Tehari",
+    "category": "Bangladeshi",
+    "description": "Mustard-oil flavoured rice cooked with spiced beef, a Dhaka favourite.",
+    "minPrice": 150,
+    "maxPrice": 280,
+    "image": "images/tehari.jpg",
+    "tags": [
+      "tehari",
+      "rice",
+      "beef",
+      "dhaka",
+      "spicy",
+      "lunch"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Burger",
+    "category": "Fast Food",
+    "description": "Grilled or fried patty in a soft bun with lettuce, cheese and sauce.",
+    "minPrice": 180,
+    "maxPrice": 400,
+    "image": "images/burger.jpg",
+    "tags": [
+      "burger",
+      "beef",
+      "chicken",
+      "cheese",
+      "bun"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Khichuri with Beef Bhuna",
+    "category": "Bangladeshi",
+    "description": "Comforting rice and lentil dish served with rich, slow cooked beef.",
+    "minPrice": 150,
+    "maxPrice": 300,
+    "image": "images/khichuri-beef-bhuna.jpg",
+    "tags": [
+      "khichuri",
+      "rice",
+      "lentil",
+      "beef",
+      "rainy day",
+      "comfort"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Shorshe Ilish",
+    "category": "Bangladeshi",
+    "description": "Hilsa fish cooked in a pungent mustard paste, best eaten with plain rice.",
+    "minPrice": 400,
+    "maxPrice": 900,
+    "image": "images/shorshe-ilish.jpg",
+    "tags": [
+      "hilsa",
+      "ilish",
+      "fish",
+      "mustard",
+      "rice",
+      "special"
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Haleem",
+    "category": "Street Food",
+    "description": "Thick, slow cooked stew of lentils, wheat and meat with lemon, ginger and fried onion.",
+    "minPrice": 100,
+    "maxPrice": 200,
+    "image": "images/haleem.jpg",
+    "tags": [
+      "haleem",
+      "stew",
+      "beef",
+      "lentil",
+      "winter",
+      "iftar"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Jhalmuri",
+    "category": "Street Food",
+    "description": "Puffed rice tossed with chilli, onion, peanuts and mustard oil.",
+    "minPrice": 20,
+    "maxPrice": 50,
+    "image": "images/jhalmuri.jpg",
+    "tags": [
+      "muri",
+      "puffed rice",
+      "spicy",
+      "crunchy",
+      "vegetarian",
+      "quick"
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Fried Chicken",
+    "category": "Fast Food",
+    "description": "Crispy, golden fried chicken pieces, often served with fries.",
+    "minPrice": 200,
+    "maxPrice": 450,
+    "image": "images/fried-chicken.jpg",
+    "tags": [
+      "chicken",
+      "fried",
+      "crispy",
+      "fries",
+      "combo"
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Pizza",
+    "category": "Fast Food",
+    "description": "Baked flatbread topped with cheese, sauce and your choice of toppings.",
+    "minPrice": 350,
+    "maxPrice": 900,
+    "image": "images/pizza.jpg",
+    "tags": [
+      "pizza",
+      "cheese",
+      "italian",
+      "share",
+      "baked"
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Singara",
+    "category": "Snacks",
+    "description": "Crisp triangular pastry stuffed with spiced potato and vegetables.",
+    "minPrice": 10,
+    "maxPrice": 25,
+    "image": "images/singara.jpg",
+    "tags": [
+      "singara",
+      "fried",
+      "potato",
+      "vegetarian",
+      "tea time",
+      "cheap"
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Beguni",
+    "category": "Snacks",
+    "description": "Slices of brinjal dipped in spiced gram flour batter and deep fried.",
+    "minPrice": 10,
+    "maxPrice": 30,
+    "image": "images/beguni.jpg",
+    "tags": [
+      "beguni",
+      "brinjal",
+      "fried",
+      "vegetarian",
+      "iftar",
+      "cheap"
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Piyaju",
+    "category": "Snacks",
+    "description": "Crunchy fried lentil and onion fritters, a classic iftar item.",
+    "minPrice": 5,
+    "maxPrice": 20,
+    "image": "images/piyaju.jpg",
+    "tags": [
+      "piyaju",
+      "lentil",
+      "onion",
+      "fried",
+      "iftar",
+      "cheap"
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Alur Chop",
+    "category": "Snacks",
+    "description": "Spiced mashed potato balls coated in gram flour and fried.",
+    "minPrice": 10,
+    "maxPrice": 30,
+    "image": "images/alur-chop.jpg",
+    "tags": [
+      "alur chop",
+      "potato",
+      "fried",
+      "vegetarian",
+      "tea time",
+      "cheap"
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Rasmalai",
+    "category": "Desserts",
+    "description": "Soft cheese dumplings soaked in sweet, creamy milk.",
+    "minPrice": 40,
+    "maxPrice": 120,
+    "image": "images/rasmalai.jpg",
+    "tags": [
+      "rasmalai",
+      "sweet",
+      "milk",
+      "creamy",
+      "mishti",
+      "cold"
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Mishti Doi",
+    "category": "Desserts",
+    "description": "Sweetened, caramelised yoghurt set in a clay pot.",
+    "minPrice": 60,
+    "maxPrice": 200,
+    "image": "images/mishti-doi.jpg",
+    "tags": [
+      "mishti doi",
+      "yoghurt",
+      "sweet",
+      "clay pot",
+      "cold",
+      "bogura"
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Roshogolla",
+    "category": "Desserts",
+    "description": "Spongy cheese balls in light sugar syrup. Price is per piece.",
+    "minPrice": 10,
+    "maxPrice": 40,
+    "image": "images/roshogolla.jpg",
+    "tags": [
+      "roshogolla",
+      "sweet",
+      "syrup",
+      "mishti",
+      "cheese"
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Firni",
+    "category": "Desserts",
+    "description": "Chilled rice pudding flavoured with milk, sugar and cardamom.",
+    "minPrice": 60,
+    "maxPrice": 150,
+    "image": "images/firni.jpg",
+    "tags": [
+      "firni",
+      "pudding",
+      "rice",
+      "milk",
+      "cardamom",
+      "cold"
+    ]
+  },
+  {
+    "id": 21,
+    "name": "Borhani",
+    "category": "Drinks",
+    "description": "Spiced, salty yoghurt drink that is the classic partner for biryani.",
+    "minPrice": 40,
+    "maxPrice": 100,
+    "image": "images/borhani.jpg",
+    "tags": [
+      "borhani",
+      "yoghurt",
+      "spicy",
+      "biryani",
+      "digestive"
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Lassi",
+    "category": "Drinks",
+    "description": "Thick, chilled yoghurt drink, served sweet or salty.",
+    "minPrice": 60,
+    "maxPrice": 150,
+    "image": "images/lassi.jpg",
+    "tags": [
+      "lassi",
+      "yoghurt",
+      "sweet",
+      "cold",
+      "creamy"
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Sugarcane Juice",
+    "category": "Drinks",
+    "description": "Fresh pressed sugarcane juice, often with a squeeze of lemon.",
+    "minPrice": 30,
+    "maxPrice": 70,
+    "image": "images/sugarcane-juice.jpg",
+    "tags": [
+      "akher roshh",
+      "sugarcane",
+      "juice",
+      "fresh",
+      "summer",
+      "cold"
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Cha (Milk Tea)",
+    "category": "Drinks",
+    "description": "Strong tea brewed with milk and sugar, found at every corner tea stall.",
+    "minPrice": 15,
+    "maxPrice": 40,
+    "image": "images/milk-tea.jpg",
+    "tags": [
+      "cha",
+      "tea",
+      "milk",
+      "hot",
+      "tea stall",
+      "morning"
+    ]
+  }
+]

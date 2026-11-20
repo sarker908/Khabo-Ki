@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Find Food Near You | Khabo Ki?</title>
+  <meta name="description" content="Find restaurants, cafes and fast food places near you using free OpenStreetMap data.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Mapbox GL JS (the map), loaded from Mapbox's official CDN -->
+  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v3.28.1/mapbox-gl.css">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/map.css">
+
+  <!-- Order matters: Mapbox GL JS, then the token file, then favorites.js and app.js (menu), then this page's script -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.28.1/mapbox-gl.js" defer></script>
+  <script src="js/mapbox-config.js" defer></script>
+  <script src="js/favorites.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <script src="js/restaurants.js" defer></script>
+</head>
+<body>
+
+  <!-- ============ NAVIGATION ============ -->
+  <header class="site-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a href="index.html" class="logo">Khabo Ki<span>?</span></a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="explore.html">Explore Foods</a></li>
+        <li><a href="restaurants.html" aria-current="page">Find Restaurants</a></li>
+        <li><a href="roulette.html">Food Roulette</a></li>
+        <li><a href="favorites.html">Favourites</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page-main">
+    <div class="container page-header">
+      <h1>Find Food Near You</h1>
+      <p>Search for a place in Bangladesh, or use your location, to see restaurants, cafés and fast food spots mapped on OpenStreetMap.</p>
+    </div>
+
+    <!-- ============ SEARCH CONTROLS ============ -->
+    <section class="container" aria-label="Search for food places">
+      <!-- Nothing is requested until the Search or Use My Location button is pressed -->
+      <form class="filter-panel" id="location-form" novalidate>
+        <div class="filter-row">
+          <div class="filter-field finder-search">
+            <label for="location-input">Place or area</label>
+            <div class="search-box">
+              <input type="search" id="location-input" name="location" maxlength="100"
+                     placeholder="e.g. Dhanmondi, Dhaka" autocomplete="off">
+            </div>
+          </div>
+
+          <div class="filter-field finder-radius">
+            <label for="radius-select">Search radius</label>
+            <select id="radius-select">
+              <option value="500">500 m</option>
+              <option value="1000" selected>1 km</option>
+              <option value="2000">2 km</option>
+              <option value="3000">3 km</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button type="submit" class="btn btn-primary" id="search-button">Search</button>
+          <button type="button" class="btn btn-outline" id="locate-button">Use My Location</button>
+        </div>
+
+        <p class="filter-help">
+          Searches start only when you press a button. We don't store your location. Its coordinates are
+          sent to the free Overpass service to find nearby places, and place names you search for are
+          sent to the free Nominatim service.
+        </p>
+      </form>
+    </section>
+
+    <!-- ============ MAP AND RESULTS ============ -->
+    <div class="container finder-layout">
+
+      <section class="map-section" aria-label="Map">
+        <div id="map" class="map" role="region" aria-label="Map of food places"></div>
+        <p class="map-credit">
+          Map &copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> and
+          &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors.
+          Places are found with Nominatim and the Overpass API from OpenStreetMap data. OpenStreetMap is
+          edited by volunteers, so some places may be missing or out of date.
+        </p>
+      </section>
+
+      <section class="results-panel" aria-labelledby="results-heading">
+        <h2 id="results-heading">Food places</h2>
+
+        <!-- Loading, empty, error and summary messages (filled in by js/restaurants.js) -->
+        <p class="results-status" id="results-status" role="status" data-state="info">
+          Search for a place, or use your location, to see food places here.
+        </p>
+        <button type="button" class="btn btn-outline cancel-button" id="cancel-button" hidden>Cancel search</button>
+
+        <ol class="restaurant-list" id="restaurant-list"></ol>
+      </section>
+    </div>
+
+    <noscript>
+      <p class="container">The restaurant finder needs JavaScript to be turned on.</p>
+    </noscript>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer" id="about">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="logo">Khabo Ki<span>?</span></a>
+        <p>A playful food discovery and restaurant finder for Bangladesh. Built as a university Web Programming project with HTML, CSS and JavaScript.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <h2 class="footer-heading">Explore</h2>
+        <ul>
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="explore.html">Explore Foods</a></li>
+          <li><a href="restaurants.html">Find Restaurants</a></li>
+          <li><a href="roulette.html">Food Roulette</a></li>
+          <li><a href="favorites.html">Favourites</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer-note container">&copy; 2026 Khabo Ki? Food prices shown are illustrative estimates. Map data &copy; OpenStreetMap contributors.</p>
+  </footer>
+
+</body>
+</html>

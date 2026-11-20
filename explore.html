@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explore Foods | Khabo Ki?</title>
+  <meta name="description" content="Search and filter foods by category and budget.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Order matters: food-data.js (catalogue), app.js (menu + food cards), explore.js (this page) -->
+  <script src="js/food-data.js" defer></script>
+  <script src="js/favorites.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <script src="js/explore.js" defer></script>
+</head>
+<body>
+
+  <!-- ============ NAVIGATION (same as the homepage, with page links) ============ -->
+  <header class="site-header">
+    <nav class="navbar container" aria-label="Main navigation">
+      <a href="index.html" class="logo">Khabo Ki<span>?</span></a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-menu" id="nav-menu">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="explore.html" aria-current="page">Explore Foods</a></li>
+        <li><a href="index.html#restaurants">Find Restaurants</a></li>
+        <li><a href="roulette.html">Food Roulette</a></li>
+        <li><a href="favorites.html">Favourites</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page-main">
+    <div class="container page-header">
+      <h1>Explore Foods</h1>
+      <p>Find something delicious for your next meal.</p>
+    </div>
+
+    <section class="container" aria-label="Find foods">
+
+      <!-- Filters: disabled until the catalogue has loaded (js/explore.js enables it) -->
+      <fieldset class="filter-panel" id="filter-panel" disabled>
+        <legend class="visually-hidden">Filter foods</legend>
+
+        <div class="filter-row">
+          <div class="filter-field">
+            <label for="search-input">Search</label>
+            <div class="search-box">
+              <input type="search" id="search-input" placeholder="Search for a food..." autocomplete="off">
+              <button type="button" class="clear-search" id="clear-search" aria-label="Clear search" hidden>&times;</button>
+            </div>
+          </div>
+
+          <div class="filter-field">
+            <label for="budget-select">Maximum budget</label>
+            <select id="budget-select" aria-describedby="budget-help">
+              <option value="any">Any budget</option>
+              <option value="50">৳50</option>
+              <option value="100">৳100</option>
+              <option value="200">৳200</option>
+              <option value="300">৳300</option>
+              <option value="500">৳500</option>
+              <option value="1000">৳1000</option>
+            </select>
+            <p class="filter-help" id="budget-help">
+              This compares each food's minimum estimated price, not its maximum price.
+              A food is shown if its cheapest estimate is within your budget.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <span class="filter-label" id="category-label">Category</span>
+          <div class="category-buttons" id="category-buttons" role="group" aria-labelledby="category-label">
+            <button type="button" class="chip is-active" data-category="All" aria-pressed="true">All</button>
+            <button type="button" class="chip" data-category="Bangladeshi" aria-pressed="false">Bangladeshi</button>
+            <button type="button" class="chip" data-category="Fast Food" aria-pressed="false">Fast Food</button>
+            <button type="button" class="chip" data-category="Street Food" aria-pressed="false">Street Food</button>
+            <button type="button" class="chip" data-category="Snacks" aria-pressed="false">Snacks</button>
+            <button type="button" class="chip" data-category="Desserts" aria-pressed="false">Desserts</button>
+            <button type="button" class="chip" data-category="Drinks" aria-pressed="false">Drinks</button>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- How many foods are showing (updated by js/explore.js) -->
+      <p class="result-count" id="result-count" aria-live="polite"></p>
+
+      <!-- Loading and error messages (same styles as the homepage) -->
+      <p class="food-status" id="explore-status">Loading foods...</p>
+
+      <!-- Shown when no food matches the filters -->
+      <div class="empty-state" id="empty-state" hidden>
+        <h2>No foods found</h2>
+        <p>Try a different search, category or budget.</p>
+        <button type="button" class="btn btn-outline" id="reset-filters">Clear all filters</button>
+      </div>
+
+      <!-- Food cards are generated by js/explore.js -->
+      <div class="food-grid" id="food-grid"></div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer" id="about">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="logo">Khabo Ki<span>?</span></a>
+        <p>A playful food discovery and restaurant finder for Bangladesh. Built as a university Web Programming project with HTML, CSS and JavaScript.</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <h2 class="footer-heading">Explore</h2>
+        <ul>
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="explore.html">Explore Foods</a></li>
+          <li><a href="index.html#restaurants">Find Restaurants</a></li>
+          <li><a href="roulette.html">Food Roulette</a></li>
+          <li><a href="favorites.html">Favourites</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer-note container">&copy; 2026 Khabo Ki? Food prices shown are illustrative estimates.</p>
+  </footer>
+
+  <!-- Short confirmation messages (used by the favourite hearts) -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+</body>
+</html>
