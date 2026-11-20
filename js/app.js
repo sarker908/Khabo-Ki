@@ -1,5 +1,5 @@
 /* ==========================================================
-   Khabo Ki? - main JavaScript
+   Khabo Koi - main JavaScript
    Handles: mobile menu, smooth scrolling, button actions,
    "coming soon" messages, missing-image fallbacks, food cards,
    favourite hearts and the Favourites page.
