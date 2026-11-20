@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Khabo Ki? | Find food you'll love in Bangladesh</title>
-  <meta name="description" content="Discover food around Bangladesh based on your cravings, budget and mood.">
+  <title>Khabo Ki? | Discover restaurants across Bangladesh</title>
+  <meta name="description" content="Discover amazing places around Bangladesh based on your cravings, budget and mood.">
 
   <!-- Poppins font from Google Fonts (free) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +12,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/food-data.js" defer></script>
   <script src="js/favorites.js" defer></script>
   <script src="js/app.js" defer></script>
 </head>
@@ -29,9 +28,8 @@
 
       <ul class="nav-menu" id="nav-menu">
         <li><a href="#home">Home</a></li>
-        <li><a href="explore.html">Explore Foods</a></li>
+        <li><a href="#explore-restaurants">Explore Restaurants</a></li>
         <li><a href="restaurants.html">Find Restaurants</a></li>
-        <li><a href="roulette.html">Food Roulette</a></li>
         <li><a href="favorites.html">Favourites</a></li>
         <li><a href="journey.html">My Food Journey</a></li>
         <li><a href="#about">About</a></li>
@@ -45,26 +43,26 @@
     <section class="hero" id="home">
       <div class="container hero-grid">
         <div class="hero-text">
-          <h1>Hungry? Let's find something delicious.</h1>
-          <p>Discover amazing food around Bangladesh based on your cravings, budget and mood.</p>
+          <h1>Find your next favourite place.</h1>
+          <p>Discover amazing places around Bangladesh based on your cravings, budget and mood.</p>
           <div class="button-row">
-            <button class="btn btn-primary" data-scroll-to="popular-foods">Find My Food</button>
-            <a href="roulette.html" class="btn btn-outline">Spin the Wheel</a>
+            <a href="#explore-restaurants" class="btn btn-primary">Explore Restaurants</a>
+            <a href="restaurants.html" class="btn btn-outline">Find Nearby</a>
           </div>
         </div>
 
-        <figure class="hero-photo image-frame hero-slideshow" data-emoji="🍛" aria-label="Food photo slideshow">
+        <figure class="hero-photo image-frame hero-slideshow" data-emoji="🏬" aria-label="Restaurant and cafe photo slideshow">
           <div class="hero-slide is-active" aria-hidden="false">
-            <img src="https://images.unsplash.com/photo-1563379091339-03246963d51a?auto=format&fit=crop&w=1200&q=85" alt="A delicious plate of biryani" width="640" height="480" fetchpriority="high">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=85" alt="Restaurant dining space" width="640" height="480" fetchpriority="high">
           </div>
           <div class="hero-slide" aria-hidden="true">
-            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1200&q=85" alt="Juicy burger with fresh toppings" width="640" height="480" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=85" alt="Modern cafe interior" width="640" height="480" loading="lazy">
           </div>
           <div class="hero-slide" aria-hidden="true">
-            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1200&q=85" alt="Freshly baked pizza" width="640" height="480" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=85" alt="Warm restaurant atmosphere" width="640" height="480" loading="lazy">
           </div>
           <div class="hero-slide" aria-hidden="true">
-            <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=1200&q=85" alt="A bowl of Asian noodles" width="640" height="480" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=85" alt="Restaurant table setting" width="640" height="480" loading="lazy">
           </div>
           <nav class="hero-slide-dots" aria-label="Choose a hero photo">
             <button class="hero-slide-dot is-active" type="button" aria-label="Show photo 1" aria-pressed="true"></button>
@@ -76,34 +74,32 @@
       </div>
     </section>
 
-    <!-- ============ FOOD CATEGORIES ============ -->
-    <section class="section" id="categories">
+    <!-- ============ EXPLORE RESTAURANTS ============ -->
+    <section class="section" id="explore-restaurants">
       <div class="container">
-        <h2>What are you craving?</h2>
-        <p class="section-intro">Pick a category to start exploring.</p>
-
-        <ul class="category-grid">
-          <li><button class="category-card" data-coming-soon="Explore Foods"><span class="category-emoji" aria-hidden="true">🍛</span>Bangladeshi</button></li>
-          <li><button class="category-card" data-coming-soon="Explore Foods"><span class="category-emoji" aria-hidden="true">🍔</span>Fast Food</button></li>
-          <li><button class="category-card" data-coming-soon="Explore Foods"><span class="category-emoji" aria-hidden="true">🥟</span>Street Food</button></li>
-          <li><button class="category-card" data-coming-soon="Explore Foods"><span class="category-emoji" aria-hidden="true">🍟</span>Snacks</button></li>
-          <li><button class="category-card" data-coming-soon="Explore Foods"><span class="category-emoji" aria-hidden="true">🍮</span>Desserts</button></li>
-          <li><button class="category-card" data-coming-soon="Explore Foods"><span class="category-emoji" aria-hidden="true">🥤</span>Drinks</button></li>
-        </ul>
+        <div class="section-heading-row">
+          <div>
+            <h2>Explore Restaurants</h2>
+            <p class="section-intro">Browse restaurant and cafe names from our Bangladesh dataset.</p>
+          </div>
+          <a class="text-link" href="restaurants.html">Open restaurant finder</a>
+        </div>
+        <label class="restaurant-directory-search" for="home-restaurant-search">
+          <span class="visually-hidden">Search restaurants by name or category</span>
+          <input type="search" id="home-restaurant-search" placeholder="Search restaurant or category..." autocomplete="off">
+        </label>
+        <p class="restaurant-directory-status" id="home-restaurant-status" role="status">Loading restaurants...</p>
+        <div class="home-restaurant-grid" id="home-restaurant-grid"></div>
+        <button class="btn btn-outline home-load-more" id="home-restaurant-more" type="button" hidden>Show more restaurants</button>
       </div>
     </section>
 
-    <!-- ============ POPULAR FOODS ============ -->
-    <section class="section section-tint" id="popular-foods">
+    <!-- ============ POPULAR RESTAURANTS ============ -->
+    <section class="section section-tint" id="popular-restaurants">
       <div class="container">
-        <h2>Popular foods</h2>
-        <p class="section-intro">Prices are illustrative estimates only. Real prices vary by place.</p>
-
-        <!-- Message shown while loading, or if the catalogue fails to load (filled in by js/app.js) -->
-        <p class="food-status" id="food-status">Loading popular foods...</p>
-
-        <!-- Cards are generated by js/app.js from data/foods.json -->
-        <div class="food-grid" id="popular-food-grid"></div>
+        <h2>Popular Restaurants</h2>
+        <p class="section-intro">Well-known restaurants and cafes found in our Bangladesh dataset.</p>
+        <div class="popular-restaurant-grid" id="popular-restaurant-grid"></div>
       </div>
     </section>
 
@@ -120,17 +116,7 @@
       </div>
     </section>
 
-    <!-- ============ FOOD ROULETTE BANNER ============ -->
-    <section class="section section-no-top" id="roulette">
-      <div class="container">
-        <div class="banner banner-orange">
-          <div>
-            <h2>Can't decide what to eat?</h2>
-          </div>
-          <a href="roulette.html" class="btn btn-light">Spin the Wheel</a>
-        </div>
-      </div>
-    </section>
+
 
   </main>
 
@@ -139,7 +125,7 @@
     <div class="container footer-grid">
       <div>
         <a href="#home" class="logo">Khabo Ki<span>?</span></a>
-        <p>A playful food discovery and restaurant finder for Bangladesh. Built as a university Web Programming project with HTML, CSS and JavaScript.</p>
+        <p>A restaurant and cafe discovery platform for Bangladesh. Built as a university Web Programming project with HTML, CSS and JavaScript.</p>
       </div>
       <nav aria-label="Footer navigation">
         <h2 class="footer-heading">Explore</h2>
@@ -147,14 +133,13 @@
           <li><a href="#home">Home</a></li>
           <li><a href="explore.html">Explore Foods</a></li>
           <li><a href="restaurants.html">Find Restaurants</a></li>
-          <li><a href="roulette.html">Food Roulette</a></li>
           <li><a href="favorites.html">Favourites</a></li>
           <li><a href="journey.html">My Food Journey</a></li>
           <li><a href="#about">About</a></li>
         </ul>
       </nav>
     </div>
-    <p class="footer-note container">&copy; 2026 Khabo Ki? Food prices shown are illustrative estimates.</p>
+    <p class="footer-note container">&copy; 2026 Khabo Ki? Restaurant data &copy; OpenStreetMap contributors.</p>
   </footer>
 
   <!-- Message bar for features that are not built yet (filled in by js/app.js) -->
