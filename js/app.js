@@ -548,8 +548,14 @@ async function loadHomepageRestaurants() {
       return places;
     }, []);
 
+    allPlaces.sort(function (a, b) {
+      return a.name.localeCompare(b.name, undefined, { sensitivity: "base", numeric: true });
+    });
+
     const seenPopular = new Set();
-    HOME_POPULAR_RESTAURANTS.forEach(function (item) {
+    HOME_POPULAR_RESTAURANTS.slice().sort(function (a, b) {
+      return a.display.localeCompare(b.display, undefined, { sensitivity: "base", numeric: true });
+    }).forEach(function (item) {
       const found = allPlaces.find(function (place) {
         return item.match.test(place.name) && !seenPopular.has(item.display.toLowerCase());
       });
