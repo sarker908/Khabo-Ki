@@ -714,7 +714,7 @@ function createPlaceCard(place) {
     toggleVisitedPlace(place);
     syncVisitedButton();
   });
-  card.append(heading, createCategoryLine(place), createPlaceDetails(place), createPlaceLinks(place), visitedButton);
+  card.append(heading, createCategoryLine(place), visitedButton, createPlaceDetails(place), createPlaceLinks(place));
 
   // Clicking the card (but not its links) moves the map to this place
   card.addEventListener("click", function (event) {
