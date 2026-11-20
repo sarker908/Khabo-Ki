@@ -4,7 +4,6 @@ function readJourneyPlaces(){try{const v=JSON.parse(localStorage.getItem(JOURNEY
 function saveJourneyPlaces(v){try{localStorage.setItem(JOURNEY_KEY,JSON.stringify(v));return true}catch(e){console.warn("Journey storage unavailable",e);return false}}
 function isPlaceVisited(key){return readJourneyPlaces().some(p=>p.key===key)}
 function toggleVisitedPlace(place){const v=readJourneyPlaces(),i=v.findIndex(p=>p.key===place.key);if(i>=0)v.splice(i,1);else v.unshift({key:place.key,name:place.displayName||place.name||"Unnamed food place",type:place.categoryLabel||"Food place",category:place.cuisine||"",latitude:Number(place.lat),longitude:Number(place.lon),visitedAt:new Date().toISOString()});saveJourneyPlaces(v);return i<0}
-function journeyDate(value){const d=new Date(value);return Number.isNaN(d.getTime())?"Date not recorded":d.toLocaleDateString("en-BD",{day:"numeric",month:"short",year:"numeric"})}
 function renderFoodJourney(){
  const list=document.getElementById("journey-list");if(!list)return;const places=readJourneyPlaces();
  const counts={total:places.length,restaurants:0,cafes:0,fastfood:0};
@@ -16,7 +15,7 @@ function renderFoodJourney(){
   const icon=document.createElement("span");icon.className="journey-place-icon";icon.textContent=p.type==="Café"?"☕":p.type==="Fast food"?"🍔":"🍽️";
   const info=document.createElement("div");info.className="journey-place-details";
   const title=document.createElement("h3");title.textContent=p.name;
-  const meta=document.createElement("p");meta.textContent=[p.type,p.category,"Visited "+journeyDate(p.visitedAt)].filter(Boolean).join(" · ");info.append(title,meta);
+  const meta=document.createElement("p");meta.textContent=[p.type,p.category].filter(Boolean).join(" · ");info.append(title,meta);
   const actions=document.createElement("div");actions.className="journey-place-actions";
   const map=document.createElement("a");map.href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(p.name+", Bangladesh");map.target="_blank";map.rel="noopener noreferrer";map.textContent="Open map";
   const remove=document.createElement("button");remove.type="button";remove.className="journey-remove";remove.textContent="Remove";remove.addEventListener("click",()=>{saveJourneyPlaces(readJourneyPlaces().filter(x=>x.key!==p.key));renderFoodJourney()});
@@ -63,7 +62,6 @@ function downloadJourneyReport(){
   pdf.setFont("helvetica","bold");pdf.setFontSize(12);pdf.setTextColor(...ink);pdf.text("Your visited places",m,y);y+=8;
   places.forEach((p,i)=>{
    const name=String(p.name||"Unnamed food place");
-   const date=journeyDate(p.visitedAt);
    const meta=[p.type,p.category].filter(Boolean).join(" · ")||"Food place";
    const nameLines=pdf.splitTextToSize(name,W-2*m-38);
    const metaLines=pdf.splitTextToSize(meta,W-2*m-38);
@@ -75,7 +73,6 @@ function downloadJourneyReport(){
    pdf.setFont("helvetica","bold");pdf.setFontSize(8.5);pdf.setTextColor(...ink);pdf.text(nameLines,m+12,y+6);
    const metaY=y+6+nameLines.length*4.2;
    pdf.setFont("helvetica","normal");pdf.setFontSize(6.5);pdf.setTextColor(...muted);pdf.text(metaLines,m+12,metaY);
-   pdf.setFontSize(6);pdf.text(date,W-m-2,y+6,{align:"right"});
    y+=h+2.5;
   });
   pdf.setProperties({title:"My Food Journey - Khabo Ki?",subject:"Personal visited food places report",author:"Khabo Ki?"});
