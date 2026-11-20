@@ -472,15 +472,36 @@ function homeRestaurantCategory(place) {
   return type === "cafe" ? "Cafe" : type === "fast_food" ? "Fast Food" : "Restaurant";
 }
 
-function createHomeRestaurantCard(name, category, popular) {
+function createHomeRestaurantCard(place, popular) {
   const card = document.createElement("article");
   card.className = popular ? "home-restaurant-card is-popular" : "home-restaurant-card";
   const title = document.createElement("h3");
-  title.textContent = name;
+  title.textContent = place.name;
   const label = document.createElement("p");
-  label.textContent = category;
+  label.textContent = place.category;
+
   card.append(title, label);
+
+  if (!popular) {
+    const visitedButton = document.createElement("button");
+    visitedButton.type = "button";
+    visitedButton.className = "home-visited-toggle";
+    visitedButton.addEventListener("click", function () {
+      const visited = toggleVisitedPlace(place);
+      syncHomeVisitedButton(visitedButton, visited);
+    });
+    syncHomeVisitedButton(visitedButton, isPlaceVisited(place.key));
+    card.appendChild(visitedButton);
+  }
+
   return card;
+}
+
+function syncHomeVisitedButton(button, visited) {
+  button.classList.toggle("is-visited", visited);
+  button.textContent = visited ? "✓ VISITED" : "MARK VISITED";
+  button.setAttribute("aria-pressed", String(visited));
+  button.setAttribute("aria-label", visited ? "Remove from My Food Journey" : "Mark as visited and add to My Food Journey");
 }
 
 async function loadHomepageRestaurants() {
@@ -500,12 +521,26 @@ async function loadHomepageRestaurants() {
     const records = await response.json();
     if (!Array.isArray(records)) throw new Error("The restaurant dataset has an invalid format.");
 
-    allPlaces = records.filter(function (place) {
-      return place && typeof place.name === "string" && place.name.trim() &&
-        ["restaurant", "cafe", "fast_food"].includes(String(place.type || "").toLowerCase());
-    }).map(function (place) {
-      return { name: place.name.trim(), category: homeRestaurantCategory(place), type: place.type };
-    });
+    allPlaces = records.reduce(function (places, place, index) {
+      const type = String(place && place.type || "").toLowerCase();
+      if (!place || typeof place.name !== "string" || !place.name.trim() ||
+          !["restaurant", "cafe", "fast_food"].includes(type)) return places;
+
+      const category = String(place.category || "").trim();
+      const typeLabel = type === "cafe" ? "Café" : type === "fast_food" ? "Fast food" : "Restaurant";
+      places.push({
+        key: "local/" + index,
+        name: place.name.trim(),
+        displayName: place.name.trim(),
+        category: homeRestaurantCategory(place),
+        categoryLabel: typeLabel,
+        cuisine: category && !/^unknown$/i.test(category) ? category : "",
+        type: typeLabel,
+        lat: Number(place.latitude),
+        lon: Number(place.longitude)
+      });
+      return places;
+    }, []);
 
     const seenPopular = new Set();
     HOME_POPULAR_RESTAURANTS.forEach(function (item) {
@@ -514,7 +549,7 @@ async function loadHomepageRestaurants() {
       });
       if (found) {
         seenPopular.add(item.display.toLowerCase());
-        popularGrid.appendChild(createHomeRestaurantCard(item.display, found.category, true));
+        popularGrid.appendChild(createHomeRestaurantCard({ name: item.display, category: found.category }, true));
       }
     });
 
@@ -522,7 +557,7 @@ async function loadHomepageRestaurants() {
       directory.replaceChildren();
       const current = filteredPlaces.slice(0, visibleCount);
       current.forEach(function (place) {
-        directory.appendChild(createHomeRestaurantCard(place.name, place.category, false));
+        directory.appendChild(createHomeRestaurantCard(place, false));
       });
       status.textContent = filteredPlaces.length
         ? "Showing " + current.length + " of " + filteredPlaces.length + " restaurants and cafes."
