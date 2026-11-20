@@ -689,14 +689,16 @@ function createPlaceCard(place) {
   const card = document.createElement("li");
   card.className = "restaurant-card";
 
-  // The name is a real button, so keyboard users can focus the map too
+  // The restaurant name opens the same Google Maps search as "View on Google Maps".
   const heading = document.createElement("h3");
-  const nameButton = document.createElement("button");
-  nameButton.type = "button";
-  nameButton.className = "restaurant-name";
-  nameButton.textContent = place.displayName;
-  nameButton.setAttribute("aria-label", "Show " + place.displayName + " on the map");
-  heading.appendChild(nameButton);
+  const nameLink = document.createElement("a");
+  nameLink.className = "restaurant-name";
+  nameLink.textContent = place.displayName;
+  nameLink.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(place.displayName + ", Bangladesh");
+  nameLink.target = "_blank";
+  nameLink.rel = "noopener noreferrer";
+  nameLink.setAttribute("aria-label", "Find " + place.displayName + " on Google Maps");
+  heading.appendChild(nameLink);
 
   const visitedButton = document.createElement("button");
   visitedButton.type = "button";
