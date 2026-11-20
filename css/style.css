@@ -748,3 +748,35 @@ section[id], footer[id] { scroll-margin-top: var(--header-height); }
  .home-restaurant-grid,.popular-restaurant-grid { grid-template-columns:1fr; }
  .home-restaurant-card { padding:.9rem 1rem; }
 }
+
+
+/* Mark visited action on homepage restaurant cards */
+.home-visited-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 42px;
+  margin-top: .85rem;
+  padding: .6rem .8rem;
+  border: 1.5px solid var(--color-accent);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--color-accent);
+  font: inherit;
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .035em;
+  cursor: pointer;
+  transition: background-color .2s, color .2s, border-color .2s;
+  touch-action: manipulation;
+}
+.home-visited-toggle:hover,
+.home-visited-toggle.is-visited {
+  background: var(--color-accent);
+  color: #fff;
+}
+.home-visited-toggle:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+}
