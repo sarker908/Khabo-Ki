@@ -699,7 +699,22 @@ function createPlaceCard(place) {
   nameButton.setAttribute("aria-label", "Show " + place.displayName + " on the map");
   heading.appendChild(nameButton);
 
-  card.append(heading, createCategoryLine(place), createPlaceDetails(place), createPlaceLinks(place));
+  const visitedButton = document.createElement("button");
+  visitedButton.type = "button";
+  visitedButton.className = "visited-toggle";
+  function syncVisitedButton() {
+    const visited = isPlaceVisited(place.key);
+    visitedButton.classList.toggle("is-visited", visited);
+    visitedButton.textContent = visited ? "✓ Visited" : "+ Mark visited";
+    visitedButton.setAttribute("aria-pressed", String(visited));
+  }
+  syncVisitedButton();
+  visitedButton.addEventListener("click", function (event) {
+    event.stopPropagation();
+    toggleVisitedPlace(place);
+    syncVisitedButton();
+  });
+  card.append(heading, createCategoryLine(place), createPlaceDetails(place), createPlaceLinks(place), visitedButton);
 
   // Clicking the card (but not its links) moves the map to this place
   card.addEventListener("click", function (event) {
