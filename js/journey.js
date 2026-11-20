@@ -75,7 +75,7 @@ function downloadJourneyReport(){
    pdf.setFont("helvetica","normal");pdf.setFontSize(6.5);pdf.setTextColor(...muted);pdf.text(metaLines,m+12,metaY);
    y+=h+2.5;
   });
-  pdf.setProperties({title:"My Food Journey - Khabo Ki?",subject:"Personal visited food places report",author:"Khabo Ki?"});
+  pdf.setProperties({title:"My Food Journey - Khabo Koi",subject:"Personal visited food places report",author:"Khabo Koi"});
   pdf.save("khabo-ki-my-food-journey.pdf");
  }catch(error){
   console.error("Food Journey PDF export failed:",error);
