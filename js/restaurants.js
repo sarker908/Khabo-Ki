@@ -1,5 +1,5 @@
 /* ==========================================================
-   Khabo Ki? - Restaurant Finder (Stage 7)
+   Khabo Koi - Restaurant Finder (Stage 7)
 
    Services used:
    - Mapbox GL JS .................... the map display only (token in js/mapbox-config.js)
@@ -402,7 +402,9 @@ async function getFoodPlaces(origin, radius) {
     if (distance <= radius) nearby.push({ ...place, distance: distance });
   });
 
-  nearby.sort(function (a, b) { return a.distance - b.distance; });
+  nearby.sort(function (a, b) {
+    return a.displayName.localeCompare(b.displayName, undefined, { sensitivity: "base", numeric: true });
+  });
   placesCache.set(cacheKey, nearby);
   return nearby;
 }
