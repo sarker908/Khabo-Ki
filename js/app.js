@@ -363,3 +363,82 @@ window.addEventListener("storage", function (event) {
 window.addEventListener("pageshow", function (event) {
   if (event.persisted) refreshFavoritesFromStorage();
 });
+
+
+// ----- Homepage hero slideshow -----
+function initHeroSlideshow() {
+  const slideshow = document.querySelector(".hero-slideshow");
+  if (!slideshow) return;
+
+  const slides = Array.from(slideshow.querySelectorAll(".hero-slide"));
+  const dots = Array.from(slideshow.querySelectorAll(".hero-slide-dot"));
+  if (slides.length < 2 || slides.length !== dots.length) return;
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let activeIndex = 0;
+  let timerId = null;
+  let isPaused = false;
+
+  function showSlide(index) {
+    activeIndex = (index + slides.length) % slides.length;
+
+    slides.forEach(function (slide, slideIndex) {
+      const isActive = slideIndex === activeIndex;
+      slide.classList.toggle("is-active", isActive);
+      slide.setAttribute("aria-hidden", String(!isActive));
+    });
+
+    dots.forEach(function (dot, dotIndex) {
+      const isActive = dotIndex === activeIndex;
+      dot.classList.toggle("is-active", isActive);
+      dot.setAttribute("aria-pressed", String(isActive));
+    });
+  }
+
+  function stopTimer() {
+    if (timerId !== null) {
+      window.clearInterval(timerId);
+      timerId = null;
+    }
+  }
+
+  function startTimer() {
+    stopTimer();
+    if (reduceMotion || isPaused || document.hidden) return;
+    timerId = window.setInterval(function () {
+      showSlide(activeIndex + 1);
+    }, 5000);
+  }
+
+  dots.forEach(function (dot, index) {
+    dot.addEventListener("click", function () {
+      showSlide(index);
+      startTimer();
+    });
+  });
+
+  slideshow.addEventListener("mouseenter", function () {
+    isPaused = true;
+    stopTimer();
+  });
+  slideshow.addEventListener("mouseleave", function () {
+    isPaused = false;
+    startTimer();
+  });
+  slideshow.addEventListener("focusin", function () {
+    isPaused = true;
+    stopTimer();
+  });
+  slideshow.addEventListener("focusout", function (event) {
+    if (!slideshow.contains(event.relatedTarget)) {
+      isPaused = false;
+      startTimer();
+    }
+  });
+  document.addEventListener("visibilitychange", startTimer);
+
+  showSlide(0);
+  startTimer();
+}
+
+initHeroSlideshow();
