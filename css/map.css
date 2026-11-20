@@ -197,3 +197,26 @@
     font-size: 1rem;
   }
 }
+
+
+/* Dynamic 1-100 km radius slider */
+.finder-radius { flex: 1 1 260px; min-width: 220px; }
+.radius-label-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: .75rem; }
+.radius-label-row label { margin: 0; }
+.radius-label-row output { min-width: 4.5rem; padding: .25rem .7rem; border-radius: 999px; background: var(--color-tint); color: var(--color-accent); font-weight: 700; text-align: center; font-variant-numeric: tabular-nums; }
+#radius-slider {
+  display: block;
+  width: 100%;
+  min-height: 32px;
+  margin: 0;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+  touch-action: pan-y;
+}
+#radius-slider:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 4px; border-radius: 999px; }
+#radius-slider:disabled { cursor: wait; opacity: .6; }
+.radius-scale { display: flex; justify-content: space-between; margin-top: .15rem; color: var(--color-muted); font-size: .78rem; }
+@media (max-width: 600px) {
+  .finder-radius { flex-basis: 100%; }
+  #radius-slider { min-height: 42px; }
+}
