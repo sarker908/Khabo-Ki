@@ -482,17 +482,15 @@ function createHomeRestaurantCard(place, popular) {
 
   card.append(title, label);
 
-  if (!popular) {
-    const visitedButton = document.createElement("button");
-    visitedButton.type = "button";
-    visitedButton.className = "home-visited-toggle";
-    visitedButton.addEventListener("click", function () {
-      const visited = toggleVisitedPlace(place);
-      syncHomeVisitedButton(visitedButton, visited);
-    });
-    syncHomeVisitedButton(visitedButton, isPlaceVisited(place.key));
-    card.appendChild(visitedButton);
-  }
+  const visitedButton = document.createElement("button");
+  visitedButton.type = "button";
+  visitedButton.className = "home-visited-toggle";
+  visitedButton.addEventListener("click", function () {
+    const visited = toggleVisitedPlace(place);
+    syncHomeVisitedButton(visitedButton, visited);
+  });
+  syncHomeVisitedButton(visitedButton, isPlaceVisited(place.key));
+  card.appendChild(visitedButton);
 
   return card;
 }
@@ -549,7 +547,7 @@ async function loadHomepageRestaurants() {
       });
       if (found) {
         seenPopular.add(item.display.toLowerCase());
-        popularGrid.appendChild(createHomeRestaurantCard({ name: item.display, category: found.category }, true));
+        popularGrid.appendChild(createHomeRestaurantCard({ ...found, name: item.display }, true));
       }
     });
 
