@@ -124,16 +124,20 @@
 
 .restaurant-card h3, .popup-content h3 { margin: 0 0 0.2rem; font-size: 1.05rem; }
 .restaurant-name {
+  display: inline-block;
   padding: 0;
   font: inherit;
   font-weight: 600;
   text-align: left;
   color: inherit;
-  background: none;
-  border: 0;
+  text-decoration: none;
+  text-underline-offset: 3px;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
-.restaurant-name:hover { color: var(--color-primary); text-decoration: underline; }
+.restaurant-name:hover,
+.restaurant-name:focus-visible { color: var(--color-primary); text-decoration: underline; }
+.restaurant-name:focus-visible { outline: 3px solid var(--color-primary); outline-offset: 3px; border-radius: 3px; }
 
 .place-category { margin: 0 0 0.5rem; font-size: 0.9rem; font-weight: 500; color: var(--color-accent); }
 .place-details { margin: 0 0 0.6rem; font-size: 0.9rem; }
