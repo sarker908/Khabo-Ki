@@ -780,3 +780,23 @@ section[id], footer[id] { scroll-margin-top: var(--header-height); }
   outline: 3px solid var(--color-primary);
   outline-offset: 3px;
 }
+
+
+/* Restaurant names open the matching Google Maps search */
+
+.home-restaurant-name {
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: 3px;
+  -webkit-tap-highlight-color: transparent;
+}
+.home-restaurant-name:hover,
+.home-restaurant-name:focus-visible {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+.home-restaurant-name:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
