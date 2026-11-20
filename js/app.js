@@ -442,3 +442,113 @@ function initHeroSlideshow() {
 }
 
 initHeroSlideshow();
+
+// ----- Homepage restaurant directory and popular places -----
+const HOME_RESTAURANT_DATA_URL = "data/khabo_ki_bangladesh.json";
+const HOME_RESTAURANT_PAGE_SIZE = 18;
+const HOME_POPULAR_RESTAURANTS = [
+  { match: /^KFC$/i, display: "KFC" },
+  { match: /^Domino's$/i, display: "Domino's" },
+  { match: /^Pizza Hut$/i, display: "Pizza Hut" },
+  { match: /^Sultan's Dine$/i, display: "Sultan's Dine" },
+  { match: /^Chillox$/i, display: "Chillox" },
+  { match: /^North End Coffee Roasters$/i, display: "North End Coffee Roasters" },
+  { match: /^Gloria Jean's$/i, display: "Gloria Jean's Coffees" },
+  { match: /^Madchef$/i, display: "Madchef" },
+  { match: /^Kacchi Bhai$/i, display: "Kacchi Bhai" },
+  { match: /^Handi$/i, display: "Handi" },
+  { match: /^BFC$/i, display: "BFC" },
+  { match: /^Secret Recipe$/i, display: "Secret Recipe" }
+];
+
+function homeRestaurantCategory(place) {
+  const raw = String(place.category || "").trim();
+  if (raw && !/^unknown$/i.test(raw)) {
+    return raw.split(/[;_]/).map(function (part) {
+      return part.trim().replace(/\b\w/g, function (letter) { return letter.toUpperCase(); });
+    }).filter(Boolean).join(", ");
+  }
+  const type = String(place.type || "").toLowerCase();
+  return type === "cafe" ? "Cafe" : type === "fast_food" ? "Fast Food" : "Restaurant";
+}
+
+function createHomeRestaurantCard(name, category, popular) {
+  const card = document.createElement("article");
+  card.className = popular ? "home-restaurant-card is-popular" : "home-restaurant-card";
+  const title = document.createElement("h3");
+  title.textContent = name;
+  const label = document.createElement("p");
+  label.textContent = category;
+  card.append(title, label);
+  return card;
+}
+
+async function loadHomepageRestaurants() {
+  const directory = document.getElementById("home-restaurant-grid");
+  if (!directory) return;
+  const status = document.getElementById("home-restaurant-status");
+  const search = document.getElementById("home-restaurant-search");
+  const moreButton = document.getElementById("home-restaurant-more");
+  const popularGrid = document.getElementById("popular-restaurant-grid");
+  let allPlaces = [];
+  let filteredPlaces = [];
+  let visibleCount = HOME_RESTAURANT_PAGE_SIZE;
+
+  try {
+    const response = await fetch(HOME_RESTAURANT_DATA_URL);
+    if (!response.ok) throw new Error("Restaurant data could not be loaded. Please refresh the page.");
+    const records = await response.json();
+    if (!Array.isArray(records)) throw new Error("The restaurant dataset has an invalid format.");
+
+    allPlaces = records.filter(function (place) {
+      return place && typeof place.name === "string" && place.name.trim() &&
+        ["restaurant", "cafe", "fast_food"].includes(String(place.type || "").toLowerCase());
+    }).map(function (place) {
+      return { name: place.name.trim(), category: homeRestaurantCategory(place), type: place.type };
+    });
+
+    const seenPopular = new Set();
+    HOME_POPULAR_RESTAURANTS.forEach(function (item) {
+      const found = allPlaces.find(function (place) {
+        return item.match.test(place.name) && !seenPopular.has(item.display.toLowerCase());
+      });
+      if (found) {
+        seenPopular.add(item.display.toLowerCase());
+        popularGrid.appendChild(createHomeRestaurantCard(item.display, found.category, true));
+      }
+    });
+
+    function renderDirectory() {
+      directory.replaceChildren();
+      const current = filteredPlaces.slice(0, visibleCount);
+      current.forEach(function (place) {
+        directory.appendChild(createHomeRestaurantCard(place.name, place.category, false));
+      });
+      status.textContent = filteredPlaces.length
+        ? "Showing " + current.length + " of " + filteredPlaces.length + " restaurants and cafes."
+        : "No restaurants matched your search.";
+      moreButton.hidden = visibleCount >= filteredPlaces.length;
+    }
+
+    function applySearch() {
+      const query = search.value.trim().toLowerCase();
+      filteredPlaces = !query ? allPlaces : allPlaces.filter(function (place) {
+        return place.name.toLowerCase().includes(query) || place.category.toLowerCase().includes(query);
+      });
+      visibleCount = HOME_RESTAURANT_PAGE_SIZE;
+      renderDirectory();
+    }
+
+    search.addEventListener("input", applySearch);
+    moreButton.addEventListener("click", function () {
+      visibleCount += HOME_RESTAURANT_PAGE_SIZE;
+      renderDirectory();
+    });
+    applySearch();
+  } catch (error) {
+    status.textContent = error.message || "Could not load the restaurant dataset.";
+    status.classList.add("is-error");
+  }
+}
+
+loadHomepageRestaurants();
