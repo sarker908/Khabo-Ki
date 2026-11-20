@@ -29,9 +29,7 @@ const START_MESSAGE = "Search for a place, or use your location, to see food pla
 const NOMINATIM_MIN_GAP_MS = 1000;      // Nominatim policy: at most 1 request per second
 const REQUEST_TIMEOUT_MS = 30000;       // give up on a request after 30 seconds
 const RESULT_CACHE_MS = 10 * 60 * 1000; // reuse the same search for 10 minutes
-const MAX_PLACES_SHOWN = 40;            // how many places are listed and put on the map
 const DUPLICATE_DISTANCE_METRES = 50;   // same name closer than this = same place
-const ALLOWED_RADIUSES = [1000, 3000, 5000, 10000]; // metres
 
 const LOCATION_CACHE_KEY = "khaboKiLocationCache"; // saved in sessionStorage (cleared when the tab closes)
 const MAX_CACHED_LOCATIONS = 30;
@@ -48,7 +46,8 @@ const DATA_TYPE_INFO = {
 // ==========================================================
 const locationForm = document.getElementById("location-form");
 const locationInput = document.getElementById("location-input");
-const radiusSelect = document.getElementById("radius-select");
+const radiusSlider = document.getElementById("radius-slider");
+const radiusValue = document.getElementById("radius-value");
 const searchButton = document.getElementById("search-button");
 const locateButton = document.getElementById("locate-button");
 const cancelButton = document.getElementById("cancel-button");
@@ -766,7 +765,7 @@ function clearResults() {
 function setControlsDisabled(disabled) {
   searchButton.disabled = disabled;
   locateButton.disabled = disabled;
-  radiusSelect.disabled = disabled;
+  radiusSlider.disabled = disabled;
 }
 
 // While a search runs, the controls are off so a second search cannot start.
@@ -786,16 +785,10 @@ function showPlaces(places, origin, radius) {
     return;
   }
 
-  const shownPlaces = places.slice(0, MAX_PLACES_SHOWN);
-  shownPlaces.forEach(addPlace);
-
-  if (places.length > shownPlaces.length) {
-    showStatus("success", "Found " + places.length + " food places within " + where +
-      ". Showing the nearest " + shownPlaces.length + ".");
-  } else {
-    showStatus("success", "Showing " + shownPlaces.length + (shownPlaces.length === 1 ? " food place" : " food places") +
-      " within " + where + ".");
-  }
+  // Render every matching dataset record. There is deliberately no 40-result cap.
+  places.forEach(addPlace);
+  showStatus("success", "Found " + places.length + (places.length === 1 ? " food place" : " food places") +
+    " within " + where + ". All matching places are listed.");
 }
 
 // The search itself. "getOrigin" is a function that finds the location
@@ -813,7 +806,7 @@ async function runSearch(getOrigin, loadingMessage, buttonToRefocus) {
     const origin = await getOrigin();
     currentOrigin = origin;
 
-    const radius = ALLOWED_RADIUSES.includes(Number(radiusSelect.value)) ? Number(radiusSelect.value) : 1000;
+    const radius = Math.max(1, Math.min(100, Number(radiusSlider.value) || 1)) * 1000;
     showOrigin(origin, radius);
 
     showStatus("loading", "Checking your location against the local restaurant database...");
@@ -856,11 +849,33 @@ function handleCancelClick() {
   if (currentController) currentController.abort();
 }
 
-// Changing the radius never searches by itself. It only explains what to do next.
-function handleRadiusChange() {
-  if (currentOrigin !== null && !isSearching) {
-    showStatus("info", "Radius changed to " + formatRadius(Number(radiusSelect.value)) +
-      ". Press Search or Use My Location to update the results.");
+// Keep the selected distance visible while the slider moves.
+function handleRadiusInput() {
+  radiusValue.textContent = Number(radiusSlider.value) + " km";
+}
+
+// Once the user releases the slider, re-filter the already-loaded local dataset
+// around the existing search centre. This does not make another geocoding request.
+async function handleRadiusChange() {
+  handleRadiusInput();
+  if (!currentOrigin || isSearching || !mapIsReady) return;
+
+  const origin = { ...currentOrigin };
+  const radius = Number(radiusSlider.value) * 1000;
+  setSearching(true);
+  clearResults();
+  currentOrigin = origin;
+
+  try {
+    showStatus("loading", "Updating results for " + formatRadius(radius) + "...");
+    showOrigin(origin, radius);
+    const places = await getFoodPlaces(origin, radius);
+    showPlaces(places, origin, radius);
+  } catch (error) {
+    if (error.code === undefined) console.error("Unexpected error:", error);
+    showStatus("error", getFriendlyMessage(error));
+  } finally {
+    setSearching(false);
   }
 }
 
@@ -893,7 +908,9 @@ function startRestaurantFinder() {
   locationForm.addEventListener("submit", handleSearchSubmit);
   locateButton.addEventListener("click", handleLocateClick);
   cancelButton.addEventListener("click", handleCancelClick);
-  radiusSelect.addEventListener("change", handleRadiusChange);
+  radiusSlider.addEventListener("input", handleRadiusInput);
+  radiusSlider.addEventListener("change", handleRadiusChange);
+  handleRadiusInput();
 
   document.addEventListener("keydown", handleEscapeKey);
 
